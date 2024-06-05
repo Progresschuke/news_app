@@ -76,7 +76,7 @@ class _HomeHandlerScreenState extends State<HomeHandlerScreen> {
             isSelected: currentIndex == 2,
             icon: AppImages.inboxIcon,
             selectedIcon: AppImages.inboxIcon,
-            label: 'Feed',
+            label: 'Inbox',
           ),
           5.horizontalSpace,
           IconWithLabel(
@@ -86,7 +86,7 @@ class _HomeHandlerScreenState extends State<HomeHandlerScreen> {
             isSelected: currentIndex == 3,
             icon: AppImages.favoriteIcon,
             selectedIcon: AppImages.favoriteIcon,
-            label: 'Account',
+            label: 'Favorite',
           ),
         ],
       ),
