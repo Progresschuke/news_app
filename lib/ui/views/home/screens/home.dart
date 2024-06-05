@@ -57,9 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SliverAppBar(
                   titleSpacing: 0.0,
                   expandedHeight: 64.h,
-                  // pinned: false,
-                  // floating: false,
-                  // stretch: false,
                   forceElevated: innerBoxIsScrolled,
                   title: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 22, 10),
@@ -100,40 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: _buildHomePage(),
             ))
 
-        //  SingleChildScrollView(
-        //   child: Padding(
-        //     padding: const EdgeInsets.fromLTRB(22, 0, 22, 10),
-        //     child: Column(
-        //       children: [
-        //         SizedBox(
-        //           height: 60.h,
-        //           width: double.infinity,
-        //           child: ListView.builder(
-        //             physics: BouncingScrollPhysics(),
-        //             scrollDirection: Axis.horizontal,
-        //             itemCount: categories.length,
-        //             itemBuilder: (context, index) {
-        //               return GestureDetector(
-        //                 onTap: () {
-        //                   _homePageController.jumpToPage(index);
-        //                   setState(() {
-        //                     currentPageIndex = index;
-        //                   });
-        //                 },
-        //                 child: HomeCategoryPage(
-        //                   isSelected: currentPageIndex == index,
-        //                   index: index,
-        //                 ),
-        //               );
-        //             },
-        //           ),
-        //         ),
-        //         10.verticalSpace,
-        //         SizedBox(height: 900.h, child: _buildHomePage()),
-        //       ],
-        //     ),
-        //   ),
-        // ),
+        //
         );
   }
 }
