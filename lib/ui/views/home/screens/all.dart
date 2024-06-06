@@ -19,20 +19,27 @@ class AllScreen extends StatelessWidget {
             suffixIcon: Icon(Icons.mic),
           ),
           30.verticalSpace,
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: newsList.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, RouteList.detailsScreen,
-                    arguments: newsList[index]),
-                child: NewsCardWidget(
-                  content: newsList[index],
-                ),
-              );
-            },
+          Container(
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: newsList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                mainAxisSpacing: 1.h,
+                mainAxisExtent: 264,
+              ),
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () => Navigator.pushNamed(
+                      context, RouteList.detailsScreen,
+                      arguments: newsList[index]),
+                  child: NewsCardWidget(
+                    content: newsList[index],
+                  ),
+                );
+              },
+            ),
           )
         ],
       ),

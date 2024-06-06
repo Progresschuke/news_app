@@ -95,9 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
             body: Padding(
               padding: const EdgeInsets.fromLTRB(22, 0, 22, 10),
               child: _buildHomePage(),
-            ))
-
-        //
-        );
+            )));
   }
 }

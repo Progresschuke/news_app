@@ -7,6 +7,7 @@ import '../consts/app_images.dart';
 
 buildAppBar() {
   return AppBar(
+    backgroundColor: AppColors.appBackgroundColor,
     leading: Container(
       padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 20),
       child: SvgPicture.asset(
