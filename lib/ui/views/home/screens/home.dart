@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/common/common_widgets.dart';
 import 'package:news_app/data/dummy_data.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../provider/home_provider.dart';
 import '../widgets/home_category_page.dart';
 import 'all.dart';
 import 'education.dart';
@@ -18,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentPageIndex = 0;
+  // int currentPageIndex = 0;
   final PageController _homePageController = PageController();
 
   final List<Widget> _homePages = [
@@ -28,13 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const ElectionScreen(),
     const MigrationScreen(),
   ];
-
-  setHomePageIndex(index) {
-    setState(() {
-      currentPageIndex = index;
-      _homePageController.jumpToPage(index);
-    });
-  }
 
   Widget _buildHomePage() {
     return PageView.builder(
@@ -48,53 +43,54 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: buildAppBar(),
-        body: NestedScrollView(
-            floatHeaderSlivers: false,
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  titleSpacing: 0.0,
-                  expandedHeight: 64.h,
-                  forceElevated: innerBoxIsScrolled,
-                  title: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 22, 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 60.h,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: categories.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  _homePageController.jumpToPage(index);
-                                  setState(() {
-                                    currentPageIndex = index;
-                                  });
-                                },
-                                child: HomeCategoryPage(
-                                  isSelected: currentPageIndex == index,
-                                  index: index,
-                                ),
-                              );
-                            },
+    return Consumer<HomeProvider>(builder: (context, provider, child) {
+      final currentPageIndex = provider.currentCategoryPageIndex;
+      return Scaffold(
+          appBar: buildAppBar(),
+          body: NestedScrollView(
+              floatHeaderSlivers: false,
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    titleSpacing: 0.0,
+                    expandedHeight: 64.h,
+                    forceElevated: innerBoxIsScrolled,
+                    title: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 22, 10),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 60.h,
+                            width: double.infinity,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: categories.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    provider.setCategoryPageIndex(index);
+                                    _homePageController.jumpToPage(index);
+                                  },
+                                  child: HomeCategoryPage(
+                                    isSelected: currentPageIndex == index,
+                                    index: index,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ];
-            },
-            body: Padding(
-              padding: const EdgeInsets.fromLTRB(22, 0, 22, 10),
-              child: _buildHomePage(),
-            )));
+                  )
+                ];
+              },
+              body: Padding(
+                padding: const EdgeInsets.fromLTRB(22, 0, 22, 10),
+                child: _buildHomePage(),
+              )));
+    });
   }
 }
